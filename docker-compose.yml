@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+    app:
+        build: .
+        ports:
+            - "8000:8000"
+        environment:
+            IP: 0.0.0.0
+            PORT: 8000
+            POSTGRES_URL: 'db'
+            POSTGRES_PASSWORD: root
+
+    db:
+        image: postgres
+        container_name: postgres
+        environment:
+            POSTGRES_PASSWORD: root # De très bons credentials :p
+            POSTGRES_DB: db
+        restart: unless-stopped
+        volumes:
+            - ./postgres-data:/var/lib/postgresql/data
